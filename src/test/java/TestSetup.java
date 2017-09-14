@@ -1,4 +1,4 @@
-import driverfactory.DriverFactory;
+import gui.driverfactory.DriverFactory;
 import org.junit.After;
 import org.junit.Before;
 import org.openqa.selenium.WebDriver;

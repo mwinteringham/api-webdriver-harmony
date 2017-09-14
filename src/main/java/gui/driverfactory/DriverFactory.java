@@ -1,10 +1,7 @@
-package driverfactory;
+package gui.driverfactory;
 
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriver;
-import org.openqa.selenium.phantomjs.PhantomJSDriverService;
-import org.openqa.selenium.remote.DesiredCapabilities;
 
 public class DriverFactory {
 
@@ -12,7 +9,7 @@ public class DriverFactory {
         //If you don't have ChromeDriver on your path, then uncomment the lines relevant to your OS
 
         //OSX
-        String pathToChromeDriver = System.getProperty("user.dir") + "/src/main/java/driverfactory/osx/chromedriver";
+        String pathToChromeDriver = System.getProperty("user.dir") + "/src/main/java/gui/driverfactory/osx/chromedriver";
         System.setProperty("webdriver.chrome.driver", pathToChromeDriver);
 
         //Windows

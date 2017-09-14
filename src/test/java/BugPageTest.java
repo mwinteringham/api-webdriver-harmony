@@ -1,14 +1,27 @@
+import gui.pageobjects.BugListPage;
+import gui.pageobjects.BugPage;
+import gui.pageobjects.DescribeComponentPage;
+import gui.pageobjects.MainPage;
+import http.Bug;
+import http.payloads.BugPayload;
 import org.hamcrest.core.Is;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
-import pageobjects.*;
 
 import static org.hamcrest.core.IsEqual.equalTo;
 
 public class BugPageTest extends TestSetup {
 
+    @Before
+    public void CreateBugForTesting() {
+        // Create bug
+        BugPayload bugPayload = new BugPayload("TestProduct", "TestComponent", "testing", "unspecified", "Mac OS", "PC", "This is a minor description");
+        Bug.postBug(bugPayload);
+    }
+
     @Test
-    public void CheckForBugCreation(){
+    public void TestForBugValues() {
         driver.navigate().to(baseUrl);
 
         // Login
@@ -17,17 +30,6 @@ public class BugPageTest extends TestSetup {
         mainPage.PopulateEmailAddress("admin@bugzilla.org");
         mainPage.PopulatePassword("password");
         mainPage.ClickLogin();
-
-        // Create bug
-        EnterBugPage enterBugPage = mainPage.ClickNewBug();
-        enterBugPage.SelectComponent("TestComponent");
-        enterBugPage.SelectVersion("unspecified");
-        enterBugPage.SelectSeverity("minor");
-        enterBugPage.SelectHardware("PC");
-        enterBugPage.SelectOS("Mac OS");
-        enterBugPage.PopulateSummary("This is a minor bug");
-        enterBugPage.PopulateDescription("This is a minor description");
-        enterBugPage.ClickSubmitBug();
 
         // Navigate to bug
         DescribeComponentPage describeComponentPage = mainPage.clickBrowse();

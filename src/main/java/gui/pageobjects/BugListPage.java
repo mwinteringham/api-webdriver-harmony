@@ -1,4 +1,4 @@
-package pageobjects;
+package gui.pageobjects;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -25,5 +25,5 @@ public class BugListPage extends PageObject {
 
         return new BugPage(driver);
     }
-    
+
 }
