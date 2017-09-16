@@ -3,7 +3,9 @@ import gui.pageobjects.BugPage;
 import gui.pageobjects.DescribeComponentPage;
 import gui.pageobjects.MainPage;
 import http.Bug;
-import http.payloads.BugPayload;
+import http.payloads.request.BugPayload;
+import http.payloads.response.BugResponsePayload;
+import io.restassured.response.Response;
 import org.hamcrest.core.Is;
 import org.junit.Assert;
 import org.junit.Before;
@@ -13,11 +15,13 @@ import static org.hamcrest.core.IsEqual.equalTo;
 
 public class BugPageTest extends TestSetup {
 
+    private BugResponsePayload bugResponsePayload;
+
     @Before
     public void CreateBugForTesting() {
         // Create bug
         BugPayload bugPayload = new BugPayload("TestProduct", "TestComponent", "testing", "unspecified", "Mac OS", "PC", "This is a minor description");
-        Bug.postBug(bugPayload);
+        bugResponsePayload = Bug.postBug(bugPayload).as(BugResponsePayload.class);
     }
 
     @Test
@@ -32,9 +36,8 @@ public class BugPageTest extends TestSetup {
         mainPage.ClickLogin();
 
         // Navigate to bug
-        DescribeComponentPage describeComponentPage = mainPage.clickBrowse();
-        BugListPage bugListPage = describeComponentPage.clickComponent();
-        BugPage bugPage = bugListPage.clickLatestBug();
+        driver.navigate().to(baseUrl + "show_bug.cgi?id=" + bugResponsePayload.getId());
+        BugPage bugPage = new BugPage(driver);
 
         // Assert bug details
         Assert.assertThat(bugPage.ReadStatus(), Is.is(equalTo("CONFIRMED (edit)")));

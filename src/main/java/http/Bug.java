@@ -1,6 +1,6 @@
 package http;
 
-import http.payloads.BugPayload;
+import http.payloads.request.BugPayload;
 import io.restassured.http.ContentType;
 import io.restassured.response.Response;
 
