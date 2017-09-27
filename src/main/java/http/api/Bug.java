@@ -1,4 +1,4 @@
-package http;
+package http.api;
 
 import http.payloads.request.BugPayload;
 import io.restassured.http.ContentType;
@@ -6,9 +6,7 @@ import io.restassured.response.Response;
 
 import static io.restassured.RestAssured.given;
 
-public class Bug {
-
-    private static String baseUrl = "http://52.17.197.56:8080/bugzilla/";
+public class Bug extends BaseRequest {
 
     public static Response postBug(BugPayload payload){
         return given()
